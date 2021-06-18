@@ -2,7 +2,7 @@ import dataclasses
 
 import pytest
 
-from .middle_value_of_triple import get_middle_value
+from middle_value_of_triple import get_middle_value
 
 
 @dataclasses.dataclass

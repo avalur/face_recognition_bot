@@ -1,2 +1,3 @@
 face-recognition
-
+python-telegram-bot
+Pillow

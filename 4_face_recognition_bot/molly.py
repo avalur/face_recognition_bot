@@ -7,6 +7,7 @@ import face_recognition
 
 from telegram import Bot, ForceReply, Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
+
 from PIL import Image
 
 from config import token
@@ -15,7 +16,7 @@ Simple Telegram Bot to make face recognition.
 
 First, a few handler functions are defined. Then, those functions are 
 passed to the Dispatcher and registered at their respective places.
-Then, the bot is started and runs until we press Ctrl-C on the command line.
+Then, the bot is started and runs until we press Ctrl-C on the ccommand line.
 
 Usage:
 Basic example to make face recognition.
@@ -59,18 +60,19 @@ def text_message(update: Update, _: CallbackContext) -> None:
 
 def _make_rects(img_array, face_locations):
     img_res = img_array.copy()
-    line_width = 3
-    edge_color = [100, 100, 100]
+    line_width_half = 3
+    edge_color = [100, 100, 100] # RGB format
     for location in face_locations:
         top, right, bottom, left = location
-        img_res[top - line_width:top + line_width, left:right] = edge_color
-        img_res[bottom - line_width:bottom + line_width, left:right] = edge_color
-        img_res[top:bottom, left - line_width:left + line_width] = edge_color
-        img_res[top:bottom, right - line_width:right + line_width] = edge_color
+        img_res[top - line_width_half:top + line_width_half, left:right] = edge_color
+        img_res[bottom - line_width_half:bottom + line_width_half, left:right] = edge_color
+        img_res[top:bottom, left - line_width_half:left + line_width_half] = edge_color
+        img_res[top:bottom, right - line_width_half:right + line_width_half] = edge_color
     return img_res
 
 
 def make_face_recognition(update: Update, _: CallbackContext) -> None:
+    """Upload and answer at user photo."""
     # message.photo is a list of PhotoSize objects,
     # which represent different sizes of the same photo
 
